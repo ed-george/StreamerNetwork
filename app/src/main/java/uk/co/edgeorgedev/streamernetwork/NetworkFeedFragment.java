@@ -3,6 +3,8 @@ package uk.co.edgeorgedev.streamernetwork;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +22,14 @@ import java.util.List;
  */
 public class NetworkFeedFragment extends Fragment implements Callback {
 
-    TextView tv;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        tv = (TextView) view.findViewById(R.id.textView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.feed_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
 
@@ -37,7 +40,7 @@ public class NetworkFeedFragment extends Fragment implements Callback {
     }
 
     public void getFeed() {
-        PkRSS.with(getActivity()).load("http://www.streamernetwork.com/feed/").nextPage().callback(this).async();
+        PkRSS.with(getActivity()).load("http://www.streamernetwork.com/feed/").callback(this).page(0).async();
     }
 
     @Override
@@ -50,9 +53,7 @@ public class NetworkFeedFragment extends Fragment implements Callback {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                for (Article article : list) {
-                    tv.append(article.getTitle() + "\n\t" + article.toShortString() + "\n");
-                }
+                recyclerView.setAdapter(new FrontPageAdapter(getActivity(), list));
             }
         });
 
@@ -63,7 +64,7 @@ public class NetworkFeedFragment extends Fragment implements Callback {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tv.append("Loading failed");
+                
             }
         });
     }

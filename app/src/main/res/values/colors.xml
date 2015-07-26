@@ -4,4 +4,5 @@
     <color name="sn_green">#43A047</color>
     <color name="sn_green_dark">#2E7D32</color>
     <color name="sn_accent">#81D4FA</color>
+    <color name="black_trans">#aa000000</color>
 </resources>
