@@ -26,7 +26,7 @@
                 android:layout_height="fill_parent" />
 
             <LinearLayout
-
+                android:id="@+id/featured_box_layout"
                 android:background="@color/sn_green"
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
@@ -52,6 +52,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="vertical"
                 android:background="@color/black_trans"
                 android:layout_width="fill_parent"
                 android:paddingLeft="8dp"
@@ -71,6 +72,19 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textColor="#cecece"/>
+
+                <TextView
+                    android:id="@+id/info_sub_text"
+                    android:layout_marginTop="@dimen/activity_half_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textAllCaps="true"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="#cecece"
+                    android:visibility="gone"/>
+
             </LinearLayout>
 
         </RelativeLayout>

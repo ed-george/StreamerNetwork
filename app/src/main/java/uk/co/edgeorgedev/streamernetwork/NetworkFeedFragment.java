@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.pkmmte.pkrss.Article;
 import com.pkmmte.pkrss.Callback;
@@ -53,7 +52,7 @@ public class NetworkFeedFragment extends Fragment implements Callback {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                recyclerView.setAdapter(new FrontPageAdapter(getActivity(), list));
+                recyclerView.setAdapter(new NetworkFeedAdapter(getActivity(), list));
             }
         });
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pkmmte.pkrss.Article;
@@ -15,48 +14,53 @@ import com.squareup.picasso.Picasso;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
-import java.text.ParseException;
-import java.util.Arrays;
+import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.List;
+
+import uk.co.edgeorgedev.streamernetwork.twitch.models.TwitchChannel;
 
 /**
  * Created by edgeorge on 28/01/15.
  */
-public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.ViewHolder> {
-    private List<Article> articleList;
+public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapter.ViewHolder> {
+    private List<TwitchChannel> twitchChannelList;
     private Activity ctx;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+
         public TextView mTitleText;
         public TextView mCommentText;
         public TextView mCreatedDate;
         public ImageView mMainImage;
         public ImageView mCommentImage;
         public TextView mFeaturedView;
+        public TextView mTitleSubText;
+        public View mFeaturedBoxView;
         public ViewHolder(View v) {
             super(v);
             mTitleText = (TextView) v.findViewById(R.id.info_text);
+            mTitleText.setTextSize(18);
             mCommentText = (TextView) v.findViewById(R.id.comment_number_text);
             mCreatedDate = (TextView) v.findViewById(R.id.created_text);
             mMainImage = (ImageView) v.findViewById(R.id.feature_image);
             mCommentImage = (ImageView) v.findViewById(R.id.comment_image);
             mFeaturedView = (TextView) v.findViewById(R.id.featured_layout);
+            mTitleSubText = (TextView) v.findViewById(R.id.info_sub_text);
+            mFeaturedBoxView = v.findViewById(R.id.featured_box_layout);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public FrontPageAdapter(Activity ctx, List<Article> articleList) {
+    public StreamerInfoAdapter(Activity ctx, List<TwitchChannel> articleList) {
         this.ctx = ctx;
-        this.articleList = articleList;
+        Collections.sort(articleList);
+        this.twitchChannelList = articleList;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public FrontPageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public StreamerInfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                           int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
@@ -68,25 +72,23 @@ public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Article article = articleList.get(position);
+        TwitchChannel twitchChannel = twitchChannelList.get(position);
 
-        holder.mFeaturedView.setText((article.getTags() != null ? article.getTags().get(0) : ctx.getString(R.string.app_name)));
-        holder.mTitleText.setText(article.getTitle());
-        Picasso.with(ctx).load(article.getImage()).error(R.drawable.feed_default).into(holder.mMainImage);
+        holder.mFeaturedView.setText(twitchChannel.getStatus());
+        holder.mTitleText.setText(twitchChannel.getName());
+        Picasso.with(ctx).load(twitchChannel.getImage().getSize600()).error(R.drawable.feed_default).into(holder.mMainImage);
 
-        holder.mMainImage.setOnClickListener(goToPostActivity(holder, article));
+        //holder.mMainImage.setOnClickListener(goToPostActivity(holder, twitchChannel));
 
-        holder.mCommentText.setText(String.format(ctx.getString(R.string.posted_by), article.getAuthor()));
+        holder.mCommentText.setText(MessageFormat.format(ctx.getString(R.string.follower_count),twitchChannel.getFollowersCount()));
 
-        DateTime articleTime = new DateTime(article.getDate());
-        DateTime now = new DateTime();
-        Period period = new Period(articleTime, now);
+        holder.mCreatedDate.setText(MessageFormat.format(ctx.getString(R.string.live_viewers), twitchChannel.getCurrentViewers()));
 
-        holder.mCreatedDate.setText(ctx.getResources().getQuantityString(R.plurals.numberOfDays, period.getDays(), period.getDays()));
-
-//        if(article.isTrending()){
-//            holder.mCommentImage.setImageResource(R.drawable.trending);
-//        }
+        if(twitchChannel.isOnline()){
+            holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.twitch_purple));
+            holder.mTitleSubText.setVisibility(View.VISIBLE);
+            holder.mTitleSubText.setText(String.format(ctx.getString(R.string.playing), twitchChannel.getMetaGame()));
+        }
 
     }
 
@@ -101,7 +103,7 @@ public class FrontPageAdapter extends RecyclerView.Adapter<FrontPageAdapter.View
 
     @Override
     public int getItemCount() {
-        return articleList.size();
+        return twitchChannelList.size();
     }
 
 }

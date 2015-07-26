@@ -1,9 +1,9 @@
 package uk.co.edgeorgedev.streamernetwork;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        Fragment contentFragment = new NetworkFeedFragment();
+//        Fragment contentFragment = new NetworkFeedFragment();
+        Fragment contentFragment = new StreamersFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
     }
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
 

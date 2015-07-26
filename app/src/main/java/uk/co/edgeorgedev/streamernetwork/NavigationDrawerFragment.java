@@ -1,8 +1,10 @@
 package uk.co.edgeorgedev.streamernetwork;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -88,6 +90,30 @@ public class NavigationDrawerFragment extends Fragment {
                 R.layout.fragment_navigation_drawer, container, false);
         ((TextView) view.findViewById(R.id.version_text))
                 .setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
+
+        view.findViewById(R.id.social_layout_facebook).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utils.newFacebookIntent(getActivity().getPackageManager(), Constants.SN_FACEBOOK_URL));
+            }
+        });
+
+        view.findViewById(R.id.social_layout_twitch).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SN_TWITCH_URL)));
+            }
+        });
+
+        view.findViewById(R.id.social_layout_twitter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utils.newTwitterIntent(getActivity().getPackageManager(),
+                        Constants.SN_TWITTER_URL,
+                        Constants.SN_TWITTER_ID));
+            }
+        });
+
         return view;
     }
 
