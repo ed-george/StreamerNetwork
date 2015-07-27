@@ -1,13 +1,17 @@
 package uk.co.edgeorgedev.streamernetwork;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,8 +20,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -113,6 +122,16 @@ public class NavigationDrawerFragment extends Fragment {
                         Constants.SN_TWITTER_ID));
             }
         });
+
+        mDrawerListView = (ListView) view.findViewById(R.id.navigation_drawer_list);
+        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectItem(position);
+            }
+        });
+        mDrawerListView.setAdapter(new MenuListAdapter(getActivity(), Utils.getMenuListItems()));
+        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         return view;
     }
@@ -251,7 +270,60 @@ public class NavigationDrawerFragment extends Fragment {
          */
         void onNavigationDrawerItemSelected(int position);
 
-        void onNavigationDrawerHeaderSelected();
+    }
 
+    private class MenuListAdapter extends BaseAdapter {
+        private Context ctx;
+        private List<MenuListItem> items;
+
+        public MenuListAdapter(Context ctx, List<MenuListItem> items) {
+            this.items = items;
+            this.ctx = ctx;
+        }
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        @Override
+        public MenuListItem getItem(int position) {
+            if(position > (items.size() - 1))
+                return null;
+
+            return items.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+
+            if (row == null) {
+                LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row = inflater.inflate(R.layout.drawer_list_item, parent, false);
+            }
+
+            MenuListItem item = getItem(position);
+
+            TextView title = (TextView) row.findViewById(R.id.menu_text);
+
+            title.setText(getString(item.name));
+
+            Drawable drawable = ContextCompat.getDrawable(getActivity(), item.imageResourceID);
+
+            if(drawable != null){
+                int px = Utils.dpToPx(24);
+                drawable.setBounds(0, 0, px, px);
+                title.setCompoundDrawablePadding(Utils.dpToPx(18));
+                title.setCompoundDrawables(drawable, null, null, null);
+            }
+
+            return row;
+        }
     }
 }

@@ -16,5 +16,7 @@
     <string name="live_viewers">{0,choice,0#0 viewers|1#1 viewer|1&lt;{0} viewers}</string>
 
     <string name="playing">Playing - %1$s</string>
+    <string name="menu_streamers">Streamers</string>
+    <string name="menu_feed">News Feed</string>
 
 </resources>

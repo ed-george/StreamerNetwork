@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 
@@ -38,9 +39,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-//        Fragment contentFragment = new NetworkFeedFragment();
-        Fragment contentFragment = new StreamersFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
     }
 
     @Override
@@ -68,11 +66,20 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-
+        Fragment contentFragment = null;
+        switch(position){
+            case 0:
+                contentFragment = new NetworkFeedFragment();
+                if(getSupportActionBar() != null)
+                    getSupportActionBar().setTitle(R.string.app_name);
+                break;
+            case 1:
+                contentFragment = new StreamersFragment();
+                if(getSupportActionBar() != null)
+                    getSupportActionBar().setTitle(R.string.menu_streamers);
+                break;
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
     }
 
-    @Override
-    public void onNavigationDrawerHeaderSelected() {
-
-    }
 }

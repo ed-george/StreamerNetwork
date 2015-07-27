@@ -1,8 +1,14 @@
 package uk.co.edgeorgedev.streamernetwork;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.util.DisplayMetrics;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by edgeorge on 26/07/15.
@@ -37,5 +43,20 @@ public class Utils {
             uri = Uri.parse(url);
             return new Intent(Intent.ACTION_VIEW, uri);
         }
+    }
+
+    public static List<MenuListItem> getMenuListItems(){
+
+        List<MenuListItem> temp = new ArrayList<>();
+
+        temp.add(new MenuListItem(R.string.menu_feed, R.drawable.ic_newspaper));
+        temp.add(new MenuListItem(R.string.menu_streamers, R.drawable.ic_gamepad));
+
+        return temp;
+    }
+
+    public static int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }

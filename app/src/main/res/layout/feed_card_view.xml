@@ -127,6 +127,7 @@
                 android:layout_alignParentStart="true" />
 
             <ImageView
+                android:id="@+id/time_image"
                 android:src="@drawable/clock"
                 android:layout_marginRight="4dp"
                 android:padding="4dp"

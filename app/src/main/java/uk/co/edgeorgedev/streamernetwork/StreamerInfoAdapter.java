@@ -1,6 +1,8 @@
 package uk.co.edgeorgedev.streamernetwork;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
         public TextView mCreatedDate;
         public ImageView mMainImage;
         public ImageView mCommentImage;
+        public ImageView mTimeImage;
         public TextView mFeaturedView;
         public TextView mTitleSubText;
         public View mFeaturedBoxView;
@@ -45,6 +48,9 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             mCreatedDate = (TextView) v.findViewById(R.id.created_text);
             mMainImage = (ImageView) v.findViewById(R.id.feature_image);
             mCommentImage = (ImageView) v.findViewById(R.id.comment_image);
+            mCommentImage.setImageResource(R.drawable.star);
+            mTimeImage = (ImageView) v.findViewById(R.id.time_image);
+            mTimeImage.setImageResource(R.drawable.mic);
             mFeaturedView = (TextView) v.findViewById(R.id.featured_layout);
             mTitleSubText = (TextView) v.findViewById(R.id.info_sub_text);
             mFeaturedBoxView = v.findViewById(R.id.featured_box_layout);
@@ -61,7 +67,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
     // Create new views (invoked by the layout manager)
     @Override
     public StreamerInfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                          int viewType) {
+                                                             int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.feed_card_view, parent, false);
@@ -72,22 +78,33 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TwitchChannel twitchChannel = twitchChannelList.get(position);
+        final TwitchChannel twitchChannel = twitchChannelList.get(position);
 
         holder.mFeaturedView.setText(twitchChannel.getStatus());
         holder.mTitleText.setText(twitchChannel.getName());
         Picasso.with(ctx).load(twitchChannel.getImage().getSize600()).error(R.drawable.feed_default).into(holder.mMainImage);
 
-        //holder.mMainImage.setOnClickListener(goToPostActivity(holder, twitchChannel));
+        holder.mMainImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ctx.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitchChannel.getLink())));
+            }
+        });
 
         holder.mCommentText.setText(MessageFormat.format(ctx.getString(R.string.follower_count),twitchChannel.getFollowersCount()));
 
         holder.mCreatedDate.setText(MessageFormat.format(ctx.getString(R.string.live_viewers), twitchChannel.getCurrentViewers()));
 
-        if(twitchChannel.isOnline()){
+        if(twitchChannel.isOnline()) {
             holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.twitch_purple));
             holder.mTitleSubText.setVisibility(View.VISIBLE);
             holder.mTitleSubText.setText(String.format(ctx.getString(R.string.playing), twitchChannel.getMetaGame()));
+
+            //SHOW FIRE IF VIEWERS OVER 100? or 10% of followers?
+            if (twitchChannel.getCurrentViewers() != 0
+                    && twitchChannel.getCurrentViewers() >= Math.round(0.1 * twitchChannel.getFollowersCount())){
+                holder.mTimeImage.setImageResource(R.drawable.trending);
+            }
         }
 
     }
