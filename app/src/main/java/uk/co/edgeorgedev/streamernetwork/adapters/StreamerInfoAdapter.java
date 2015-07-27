@@ -1,4 +1,4 @@
-package uk.co.edgeorgedev.streamernetwork;
+package uk.co.edgeorgedev.streamernetwork.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,13 +13,11 @@ import android.widget.TextView;
 import com.pkmmte.pkrss.Article;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-import org.joda.time.Period;
-
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 
+import uk.co.edgeorgedev.streamernetwork.R;
 import uk.co.edgeorgedev.streamernetwork.twitch.models.TwitchChannel;
 
 /**
@@ -54,6 +52,9 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             mFeaturedView = (TextView) v.findViewById(R.id.featured_layout);
             mTitleSubText = (TextView) v.findViewById(R.id.info_sub_text);
             mFeaturedBoxView = v.findViewById(R.id.featured_box_layout);
+
+            mTimeImage.setVisibility(View.GONE);
+            mCreatedDate.setVisibility(View.GONE);
         }
     }
 
@@ -95,19 +96,31 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
 
         holder.mCreatedDate.setText(MessageFormat.format(ctx.getString(R.string.live_viewers), twitchChannel.getCurrentViewers()));
 
-        if(twitchChannel.isOnline()) {
+        if(twitchChannel.isLive()) {
+
+            holder.mTimeImage.setVisibility(View.VISIBLE);
+            holder.mCreatedDate.setVisibility(View.VISIBLE);
+
             holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.twitch_purple));
-            holder.mTitleSubText.setVisibility(View.VISIBLE);
-            holder.mTitleSubText.setText(String.format(ctx.getString(R.string.playing), twitchChannel.getMetaGame()));
+            if(!twitchChannel.getMetaGame().isEmpty()) {
+                holder.mTitleSubText.setVisibility(View.VISIBLE);
+                holder.mTitleSubText.setText(String.format(ctx.getString(R.string.playing), twitchChannel.getMetaGame()));
+            }
 
             //SHOW FIRE IF VIEWERS OVER 100? or 10% of followers?
             if (twitchChannel.getCurrentViewers() != 0
                     && twitchChannel.getCurrentViewers() >= Math.round(0.1 * twitchChannel.getFollowersCount())){
                 holder.mTimeImage.setImageResource(R.drawable.trending);
             }
+        }else{
+            holder.mTimeImage.setVisibility(View.INVISIBLE);
+            holder.mCreatedDate.setVisibility(View.INVISIBLE);
+            holder.mTitleSubText.setVisibility(View.GONE);
+            holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.sn_green));
         }
 
     }
+
 
     private View.OnClickListener goToPostActivity(final ViewHolder holder, final Article post) {
         return new View.OnClickListener() {

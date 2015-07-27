@@ -1,4 +1,4 @@
-package uk.co.edgeorgedev.streamernetwork;
+package uk.co.edgeorgedev.streamernetwork.adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +16,8 @@ import org.joda.time.Period;
 
 import java.text.MessageFormat;
 import java.util.List;
+
+import uk.co.edgeorgedev.streamernetwork.R;
 
 /**
  * Created by edgeorge on 28/01/15.

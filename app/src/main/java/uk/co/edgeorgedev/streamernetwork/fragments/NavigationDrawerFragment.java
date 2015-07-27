@@ -1,4 +1,4 @@
-package uk.co.edgeorgedev.streamernetwork;
+package uk.co.edgeorgedev.streamernetwork.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,11 +21,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import uk.co.edgeorgedev.streamernetwork.BuildConfig;
+import uk.co.edgeorgedev.streamernetwork.common.Constants;
+import uk.co.edgeorgedev.streamernetwork.classes.MenuListItem;
+import uk.co.edgeorgedev.streamernetwork.R;
+import uk.co.edgeorgedev.streamernetwork.common.Utils;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -213,16 +217,22 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
-        if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
+
+        if(mCurrentSelectedPosition != position) {
+
+            mCurrentSelectedPosition = position;
+            if (mDrawerListView != null) {
+                mDrawerListView.setItemChecked(position, true);
+            }
+            if (mCallbacks != null) {
+                mCallbacks.onNavigationDrawerItemSelected(position);
+            }
         }
+
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
-        if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
-        }
+
     }
 
     @Override

@@ -1,6 +1,5 @@
-package uk.co.edgeorgedev.streamernetwork;
+package uk.co.edgeorgedev.streamernetwork.common;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -9,6 +8,9 @@ import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import uk.co.edgeorgedev.streamernetwork.classes.MenuListItem;
+import uk.co.edgeorgedev.streamernetwork.R;
 
 /**
  * Created by edgeorge on 26/07/15.

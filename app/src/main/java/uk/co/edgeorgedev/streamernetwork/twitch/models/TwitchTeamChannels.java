@@ -13,7 +13,7 @@ import java.util.List;
 public class TwitchTeamChannels {
 
     @Expose
-    private List<TwitchChannelWrapper> channels = new ArrayList<TwitchChannelWrapper>();
+    private List<TwitchChannelWrapper> channels = new ArrayList<>();
 
     /**
      *

@@ -238,8 +238,8 @@ public class TwitchChannel implements Comparable{
         this.currentViewers = currentViewers;
     }
 
-    public boolean isOnline(){
-        return getStatus().equals("online");
+    public boolean isLive(){
+        return getStatus().equals("live");
     }
 
 

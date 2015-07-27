@@ -1,4 +1,4 @@
-package uk.co.edgeorgedev.streamernetwork;
+package uk.co.edgeorgedev.streamernetwork.classes;
 
 /**
  * Created by edgeorge on 27/07/15.

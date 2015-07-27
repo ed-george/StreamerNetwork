@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import uk.co.edgeorgedev.streamernetwork.fragments.NavigationDrawerFragment;
+import uk.co.edgeorgedev.streamernetwork.fragments.NetworkFeedFragment;
+import uk.co.edgeorgedev.streamernetwork.fragments.StreamersFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 

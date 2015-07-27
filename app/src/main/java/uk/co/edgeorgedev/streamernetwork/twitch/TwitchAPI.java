@@ -42,7 +42,6 @@ public class TwitchAPI {
 
         return new RestAdapter.Builder()
                 .setEndpoint(url)
-                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setRequestInterceptor(requestInterceptor).build();
     }
 

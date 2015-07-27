@@ -1,4 +1,4 @@
-package uk.co.edgeorgedev.streamernetwork;
+package uk.co.edgeorgedev.streamernetwork.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import uk.co.edgeorgedev.streamernetwork.R;
+import uk.co.edgeorgedev.streamernetwork.adapters.StreamerInfoAdapter;
 import uk.co.edgeorgedev.streamernetwork.twitch.TwitchAPI;
 import uk.co.edgeorgedev.streamernetwork.twitch.models.TwitchTeamChannels;
 
