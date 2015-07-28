@@ -85,10 +85,7 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
             public void onClick(View v) {
                 Context ctx = v.getContext();
                 Intent intent = new Intent(ctx, PostActivity.class);
-                intent.putExtra("title", article.getTitle());
-                intent.putExtra("imageUrl", article.getImage().toString());
-                intent.putExtra("postData", article.getDescription());
-                intent.putExtra("postUrl", article.getSource().toString());
+                intent.putExtra("article", article);
                 ctx.startActivity(intent);
             }
         });

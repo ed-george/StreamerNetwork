@@ -23,14 +23,12 @@
     <string name="error_subtitle">Something went wrong, please try again.</string>
     <string name="retry">RETRY</string>
     <string name="menu_forum">Forums</string>
-    <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
-    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
-    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
-    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
-    the big cheese</string>
     <string name="share_post">Share post to…</string>
     <string name="share_prefix">Check out: </string>
     <string name="tags">Tags</string>
     <string name="description">Description</string>
+    <string name="authored">Author</string>
+    <string name="written_by">Article written by %1$s and posted at %2$s</string>
+    <string name="read_full_article">Read full article on Streamer Network</string>
 
 </resources>

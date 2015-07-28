@@ -120,7 +120,7 @@ public class NavigationDrawerFragment extends Fragment {
         view.findViewById(R.id.social_layout_twitch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SN_TWITCH_URL)));
+                startActivity(Utils.openURLIntent(Constants.SN_TWITCH_URL));
             }
         });
 

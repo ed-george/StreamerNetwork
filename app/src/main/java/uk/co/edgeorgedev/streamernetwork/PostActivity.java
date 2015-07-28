@@ -6,20 +6,27 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pkmmte.pkrss.Article;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import uk.co.edgeorgedev.streamernetwork.common.Utils;
+import uk.co.edgeorgedev.streamernetwork.view.TagView;
 
 /**
  * Created by edgeorge on 28/07/15.
  */
 public class PostActivity extends AppCompatActivity{
 
-    private String imageUrl, postTitle, postData, postUrl;
-    private FloatingActionButton mShareFab;
+    private Article article;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,35 +39,61 @@ public class PostActivity extends AppCompatActivity{
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mShareFab = (FloatingActionButton) findViewById(R.id.fab_share);
+        FloatingActionButton mShareFab = (FloatingActionButton) findViewById(R.id.fab_share);
         mShareFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPostInBrowser();
+                shareDialog();
             }
         });
 
         Intent intent = getIntent();
-        postTitle = intent.getStringExtra("title");
-        postUrl = intent.getStringExtra("postUrl");
-        imageUrl = intent.getStringExtra("imageUrl");
-        postData = intent.getStringExtra("postData");
+        article = intent.getParcelableExtra("article");
 
-        Log.w(getClass().getCanonicalName(), postTitle + " " + imageUrl + " " + postData);
+        ((TextView) findViewById(R.id.postContent)).setText(getFormattedDescription());
 
-        ((TextView) findViewById(R.id.postContent)).setText(postData);
-
+        findViewById(R.id.read_full_article).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utils.openURLIntent(article.getSource().toString()));
+            }
+        });
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(postTitle);
+        collapsingToolbar.setTitle(article.getTitle());
 
         loadBackdrop((ImageView) findViewById(R.id.backdrop));
+        loadTags(article.getTags());
+        loadAuthorInfo();
+    }
+
+    private String getFormattedDescription() {
+        String desc = article.getDescription();
+        return desc.substring(0, desc.indexOf("…") + 1);
+    }
+
+    private void loadTags(List<String> tagStrings) {
+        TagView tagView = (TagView) findViewById(R.id.tagView);
+
+        TagView.Tag[] tags = new TagView.Tag[tagStrings.size()];
+        int i = 0;
+        for(String tag : article.getTags()){
+            tags[i++] = new TagView.Tag(tag, getResources().getColor(R.color.sn_green));
+        }
+        tagView.setTags(tags ," ");
+    }
+
+    private void loadAuthorInfo(){
+        TextView authorInfo = (TextView) findViewById(R.id.author_info);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = formatter.format(new Date(article.getDate()));
+        authorInfo.setText(String.format(getString(R.string.written_by), article.getAuthor(), formattedDate));
     }
 
     private void loadBackdrop(ImageView imageView) {
         Picasso.with(this)
-                .load(imageUrl)
+                .load(article.getImage().toString())
                 .placeholder(R.drawable.feed_default)
                 .error(R.drawable.feed_default)
                 .fit()
@@ -68,12 +101,12 @@ public class PostActivity extends AppCompatActivity{
     }
 
 
-    private void openPostInBrowser(){
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, postUrl);
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_prefix) + postTitle);
-        startActivity(Intent.createChooser(intent, getString(R.string.share_post)));
+    private void shareDialog(){
+        startActivity(
+                Utils.getShareDialogIntent(
+                        article.getSource().toString(),
+                        getString(R.string.share_prefix) + article.getTitle(),
+                        getString(R.string.share_post)
+                ));
     }
-
 }

@@ -47,6 +47,18 @@ public class Utils {
         }
     }
 
+    public static Intent openURLIntent(String url) {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+    }
+
+    public static Intent getShareDialogIntent(String url, String content, String dialogText){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, url);
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, content);
+        return Intent.createChooser(intent, dialogText);
+    }
+
     public static List<MenuListItem> getMenuListItems(){
 
         List<MenuListItem> temp = new ArrayList<>();
@@ -62,4 +74,5 @@ public class Utils {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
+
 }

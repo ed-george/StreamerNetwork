@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import uk.co.edgeorgedev.streamernetwork.common.Constants;
+import uk.co.edgeorgedev.streamernetwork.common.Utils;
 import uk.co.edgeorgedev.streamernetwork.fragments.NavigationDrawerFragment;
 import uk.co.edgeorgedev.streamernetwork.fragments.NetworkFeedFragment;
 import uk.co.edgeorgedev.streamernetwork.fragments.StreamersFragment;
@@ -87,9 +88,8 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                     getSupportActionBar().setTitle(R.string.menu_streamers);
                 break;
             case 2:
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Intent intent = Utils.openURLIntent(Constants.SN_FORUMS_URL);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setData(Uri.parse(Constants.SN_FORUMS_URL));
                 startActivity(intent);
                 return;
             default:

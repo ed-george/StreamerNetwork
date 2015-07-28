@@ -90,7 +90,19 @@
                         android:id="@+id/postContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        />
+
+                    <TextView
+                        android:id="@+id/read_full_article"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/sn_green"
+                        android:textAllCaps="true"
+                        android:paddingTop="@dimen/card_margin"
+                        android:paddingBottom="@dimen/card_margin"
+                        android:text="@string/read_full_article"
+                        />
 
                 </LinearLayout>
 
@@ -114,10 +126,12 @@
                         android:text="@string/tags"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                    <TextView
+                    <uk.co.edgeorgedev.streamernetwork.view.TagView
+                        android:id="@+id/tagView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        style="@style/Widget.TagView"
+                        />
 
                 </LinearLayout>
 
@@ -138,13 +152,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Related"
+                        android:text="@string/authored"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
+                        android:id="@+id/author_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        />
 
                 </LinearLayout>
 
