@@ -16,17 +16,20 @@ import com.pkmmte.pkrss.PkRSS;
 
 import java.util.List;
 
-import uk.co.edgeorgedev.streamernetwork.adapters.NetworkFeedAdapter;
+import tr.xip.errorview.ErrorView;
 import uk.co.edgeorgedev.streamernetwork.R;
+import uk.co.edgeorgedev.streamernetwork.adapters.NetworkFeedAdapter;
 
 
 /**
  * Created by edgeorge on 26/07/15.
  */
-public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefreshLayout.OnRefreshListener {
+public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefreshLayout.OnRefreshListener, ErrorView.RetryListener {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
+    private ErrorView errorView;
+
 
     @Nullable
     @Override
@@ -36,16 +39,20 @@ public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefr
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(this);
+        errorView = (ErrorView) view.findViewById(R.id.error_view);
+        errorView.setOnRetryListener(this);
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         getFeed();
     }
 
     public void getFeed() {
+        errorView.setVisibility(View.GONE);
+        refreshLayout.setVisibility(View.VISIBLE);
         PkRSS.with(getActivity()).load("http://www.streamernetwork.com/feed/").callback(this).page(0).async();
     }
 
@@ -81,6 +88,8 @@ public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefr
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    errorView.setVisibility(View.VISIBLE);
+                    refreshLayout.setVisibility(View.GONE);
                     onItemsLoaded();
                 }
             });
@@ -92,7 +101,14 @@ public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefr
         getFeed();
     }
 
-    public void onItemsLoaded(){
-        refreshLayout.setRefreshing(true);
+    @Override
+    public void onRetry() {
+        getFeed();
     }
+
+    public void onItemsLoaded(){
+        if(refreshLayout.isRefreshing())
+            refreshLayout.setRefreshing(false);
+    }
+
 }

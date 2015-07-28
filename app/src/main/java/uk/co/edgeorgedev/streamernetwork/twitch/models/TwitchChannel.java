@@ -242,7 +242,6 @@ public class TwitchChannel implements Comparable{
         return getStatus().equals("live");
     }
 
-
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

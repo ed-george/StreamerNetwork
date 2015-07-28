@@ -1,5 +1,7 @@
 package uk.co.edgeorgedev.streamernetwork;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import uk.co.edgeorgedev.streamernetwork.common.Constants;
 import uk.co.edgeorgedev.streamernetwork.fragments.NavigationDrawerFragment;
 import uk.co.edgeorgedev.streamernetwork.fragments.NetworkFeedFragment;
 import uk.co.edgeorgedev.streamernetwork.fragments.StreamersFragment;
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new NetworkFeedFragment()).commit();
 
     }
 
@@ -81,6 +86,14 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 if(getSupportActionBar() != null)
                     getSupportActionBar().setTitle(R.string.menu_streamers);
                 break;
+            case 2:
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setData(Uri.parse(Constants.SN_FORUMS_URL));
+                startActivity(intent);
+                return;
+            default:
+                return;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
     }

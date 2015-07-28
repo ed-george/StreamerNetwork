@@ -3,8 +3,9 @@
     <color name="sn_green_light">#A5D6A7</color>
     <color name="sn_green">#43A047</color>
     <color name="sn_green_dark">#2E7D32</color>
-    <color name="sn_accent">#81D4FA</color>
+    <color name="sn_accent">#2196F3</color>
     <color name="black_trans">#aa000000</color>
     <color name="twitch_purple">#6441A5</color>
     <color name="light_grey">#cecece</color>
+    <color name="dark_window_background">#ff303030</color>
 </resources>

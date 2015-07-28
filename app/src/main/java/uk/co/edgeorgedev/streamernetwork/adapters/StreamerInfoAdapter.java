@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.pkmmte.pkrss.Article;
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +39,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
         public TextView mFeaturedView;
         public TextView mTitleSubText;
         public View mFeaturedBoxView;
+        public ShimmerFrameLayout shimmerFrameLayout;
         public ViewHolder(View v) {
             super(v);
             mTitleText = (TextView) v.findViewById(R.id.info_text);
@@ -52,9 +54,10 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             mFeaturedView = (TextView) v.findViewById(R.id.featured_layout);
             mTitleSubText = (TextView) v.findViewById(R.id.info_sub_text);
             mFeaturedBoxView = v.findViewById(R.id.featured_box_layout);
-
+            shimmerFrameLayout = (ShimmerFrameLayout) v.findViewById(R.id.shimmer_view_container);
             mTimeImage.setVisibility(View.GONE);
             mCreatedDate.setVisibility(View.GONE);
+
         }
     }
 
@@ -102,6 +105,10 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             holder.mCreatedDate.setVisibility(View.VISIBLE);
 
             holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.twitch_purple));
+            holder.shimmerFrameLayout.setBaseAlpha(0.8f);
+            holder.shimmerFrameLayout.startShimmerAnimation();
+
+
             if(!twitchChannel.getMetaGame().isEmpty()) {
                 holder.mTitleSubText.setVisibility(View.VISIBLE);
                 holder.mTitleSubText.setText(String.format(ctx.getString(R.string.playing), twitchChannel.getMetaGame()));
@@ -117,6 +124,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             holder.mCreatedDate.setVisibility(View.INVISIBLE);
             holder.mTitleSubText.setVisibility(View.GONE);
             holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.sn_green));
+            holder.shimmerFrameLayout.stopShimmerAnimation();
         }
 
     }

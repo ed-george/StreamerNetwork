@@ -67,6 +67,7 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    private List<MenuListItem> items;
 
     public NavigationDrawerFragment() {
     }
@@ -80,11 +81,16 @@ public class NavigationDrawerFragment extends Fragment {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
+
+        items = Utils.getMenuListItems();
+        
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
 
+        
+        
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
     }
@@ -134,7 +140,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new MenuListAdapter(getActivity(), Utils.getMenuListItems()));
+        mDrawerListView.setAdapter(new MenuListAdapter(getActivity(), items));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         return view;
@@ -220,9 +226,15 @@ public class NavigationDrawerFragment extends Fragment {
 
         if(mCurrentSelectedPosition != position) {
 
-            mCurrentSelectedPosition = position;
-            if (mDrawerListView != null) {
-                mDrawerListView.setItemChecked(position, true);
+
+            if(!items.get(position).isExternal) {
+
+                mCurrentSelectedPosition = position;
+
+                if (mDrawerListView != null) {
+                    mDrawerListView.setItemChecked(position, true);
+                }
+
             }
             if (mCallbacks != null) {
                 mCallbacks.onNavigationDrawerItemSelected(position);

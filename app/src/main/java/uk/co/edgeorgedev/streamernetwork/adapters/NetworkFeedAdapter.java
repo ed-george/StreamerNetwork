@@ -1,6 +1,9 @@
 package uk.co.edgeorgedev.streamernetwork.adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import org.joda.time.Period;
 import java.text.MessageFormat;
 import java.util.List;
 
+import uk.co.edgeorgedev.streamernetwork.PostActivity;
 import uk.co.edgeorgedev.streamernetwork.R;
 
 /**
@@ -68,13 +72,26 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Article article = articleList.get(position);
+        final Article article = articleList.get(position);
 
         holder.mFeaturedView.setText((article.getTags() != null ? article.getTags().get(0) : ctx.getString(R.string.app_name)));
         holder.mTitleText.setText(article.getTitle());
-        Picasso.with(ctx).load(article.getImage()).error(R.drawable.feed_default).into(holder.mMainImage);
+        Uri image = article.getImage();
+        String url = image.toString().replace("-150x150", "");
+        Picasso.with(ctx).load(url).placeholder(R.drawable.feed_default).error(R.drawable.feed_default).fit().into(holder.mMainImage);
 
-        holder.mMainImage.setOnClickListener(goToPostActivity(holder, article));
+        holder.mMainImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context ctx = v.getContext();
+                Intent intent = new Intent(ctx, PostActivity.class);
+                intent.putExtra("title", article.getTitle());
+                intent.putExtra("imageUrl", article.getImage().toString());
+                intent.putExtra("postData", article.getDescription());
+                intent.putExtra("postUrl", article.getSource().toString());
+                ctx.startActivity(intent);
+            }
+        });
 
         holder.mCommentText.setText(String.format(ctx.getString(R.string.posted_by), article.getAuthor()));
 
@@ -88,15 +105,6 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
 //            holder.mCommentImage.setImageResource(R.drawable.trending);
 //        }
 
-    }
-
-    private View.OnClickListener goToPostActivity(final ViewHolder holder, final Article post) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //PostActivity.launch(ctx, holder.mMainImage, post);
-            }
-        };
     }
 
     @Override

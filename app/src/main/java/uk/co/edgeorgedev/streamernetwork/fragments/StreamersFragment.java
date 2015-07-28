@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import tr.xip.errorview.ErrorView;
 import uk.co.edgeorgedev.streamernetwork.R;
 import uk.co.edgeorgedev.streamernetwork.adapters.StreamerInfoAdapter;
 import uk.co.edgeorgedev.streamernetwork.twitch.TwitchAPI;
@@ -21,9 +22,10 @@ import uk.co.edgeorgedev.streamernetwork.twitch.models.TwitchTeamChannels;
 /**
  * Created by edgeorge on 26/07/15.
  */
-public class StreamersFragment extends Fragment implements Callback<TwitchTeamChannels>, SwipeRefreshLayout.OnRefreshListener{
+public class StreamersFragment extends Fragment implements Callback<TwitchTeamChannels>, SwipeRefreshLayout.OnRefreshListener, ErrorView.RetryListener {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
+    private ErrorView errorView;
 
     @Nullable
     @Override
@@ -33,6 +35,8 @@ public class StreamersFragment extends Fragment implements Callback<TwitchTeamCh
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(this);
+        errorView = (ErrorView) view.findViewById(R.id.error_view);
+        errorView.setOnRetryListener(this);
         return view;
     }
 
@@ -51,6 +55,8 @@ public class StreamersFragment extends Fragment implements Callback<TwitchTeamCh
 
     @Override
     public void failure(RetrofitError error) {
+        errorView.setVisibility(View.VISIBLE);
+        refreshLayout.setVisibility(View.GONE);
         onItemsLoadComplete();
     }
 
@@ -59,7 +65,14 @@ public class StreamersFragment extends Fragment implements Callback<TwitchTeamCh
         loadItems();
     }
 
+    @Override
+    public void onRetry() {
+        loadItems();
+    }
+
     private void loadItems() {
+        errorView.setVisibility(View.GONE);
+        refreshLayout.setVisibility(View.VISIBLE);
         refreshLayout.setRefreshing(true);
         TwitchAPI.getWebAPI().getTeamMembers("streamernetwork", this);
     }
@@ -67,5 +80,6 @@ public class StreamersFragment extends Fragment implements Callback<TwitchTeamCh
     private void onItemsLoadComplete() {
         refreshLayout.setRefreshing(false);
     }
+
 
 }

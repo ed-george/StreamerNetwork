@@ -25,6 +25,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                >
             <LinearLayout
                 android:id="@+id/featured_box_layout"
                 android:background="@color/sn_green"
@@ -37,9 +45,7 @@
                 android:paddingBottom="4dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" >
+                 >
                 <TextView
                     android:id="@+id/featured_layout"
                     android:gravity="center"
@@ -50,6 +56,7 @@
                     android:textAllCaps="true"
                     android:text="@string/app_name"/>
             </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <LinearLayout
                 android:orientation="vertical"

@@ -6,9 +6,11 @@ package uk.co.edgeorgedev.streamernetwork.classes;
 public class MenuListItem {
     public int name;
     public int imageResourceID;
+    public boolean isExternal;
 
-    public MenuListItem(int name, int imageResourceID){
+    public MenuListItem(int name, int imageResourceID, boolean isExternal){
         this.name = name;
         this.imageResourceID = imageResourceID;
+        this.isExternal = isExternal;
     }
 }

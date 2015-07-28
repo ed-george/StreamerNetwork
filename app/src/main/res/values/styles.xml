@@ -3,12 +3,41 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppTheme.Base"/>
 
+    <style name="AppThemeTwo" parent="AppThemeTwo.Base"/>
+
+    <style name="AppThemeTwo.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/sn_green</item>
+        <item name="colorPrimaryDark">@color/sn_green_dark</item>
+        <item name="colorAccent">@color/sn_accent</item>
+        <item name="android:windowBackground">@color/dark_window_background</item>
+    </style>
+
     <style name="AppTheme.Base" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/sn_green</item>
         <item name="colorPrimaryDark">@color/sn_green_dark</item>
         <item name="colorAccent">@color/sn_accent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">4dp</item>
+    </style>
+
+    <style name="Widget.TagView" parent="@android:style/Widget.TextView">
+        <item name="tagCornerRadius">6dp</item>
+        <item name="tagPadding">8dp</item>
+        <item name="tagUppercase">true</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 
