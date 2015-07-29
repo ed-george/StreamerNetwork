@@ -23,7 +23,7 @@
     <string name="error_subtitle">Something went wrong, please try again.</string>
     <string name="retry">RETRY</string>
     <string name="menu_forum">Forums</string>
-    <string name="share_post">Share post to…</string>
+    <string name="share_post">Share article to…</string>
     <string name="share_prefix">Check out: </string>
     <string name="tags">Tags</string>
     <string name="description">Description</string>
