@@ -30,8 +30,8 @@ android {
         applicationId "uk.co.edgeorgedev.streamernetwork"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode advancedVersioning.versionCode
+        versionName advancedVersioning.versionName
         buildConfigField "String", "TWITCH_CLIENT_ID", "\"40ekrv439yrkmelzryqnbirffx7khh6\""
     }
 
