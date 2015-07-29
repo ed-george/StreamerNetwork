@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import uk.co.edgeorgedev.streamernetwork.common.Constants;
 import uk.co.edgeorgedev.streamernetwork.common.Utils;
 import uk.co.edgeorgedev.streamernetwork.view.TagView;
 
@@ -55,6 +56,7 @@ public class PostActivity extends AppCompatActivity{
         findViewById(R.id.read_full_article).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Utils.trackEvents(Constants.READ_FULL_ARTICLE_EVENT);
                 startActivity(Utils.openURLIntent(article.getSource().toString()));
             }
         });
@@ -66,6 +68,9 @@ public class PostActivity extends AppCompatActivity{
         loadBackdrop((ImageView) findViewById(R.id.backdrop));
         loadTags(article.getTags());
         loadAuthorInfo();
+
+        Utils.trackArticle(article);
+
     }
 
     private String getFormattedDescription() {

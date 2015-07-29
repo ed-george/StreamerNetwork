@@ -6,8 +6,13 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 
+import com.parse.ParseAnalytics;
+import com.pkmmte.pkrss.Article;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import uk.co.edgeorgedev.streamernetwork.classes.MenuListItem;
 import uk.co.edgeorgedev.streamernetwork.R;
@@ -73,6 +78,32 @@ public class Utils {
     public static int dpToPx(int dp) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static void trackView(String viewName){
+        Map<String, String> dimensions = new HashMap<>();
+        dimensions.put("view", viewName);
+        ParseAnalytics.trackEventInBackground("read", dimensions);
+    }
+
+    public static void trackArticle(Article article){
+        Map<String, String> dimensions = new HashMap<>();
+        dimensions.put("view", Constants.VIEW_NEWS_POST);
+        dimensions.put("article_id", Integer.toString(article.getId()));
+        dimensions.put("article_author", article.getAuthor());
+        ParseAnalytics.trackEventInBackground("read", dimensions);
+    }
+
+    public static void trackEvents(String... events){
+
+        if(events == null)
+            return;
+
+        Map<String, String> dimensions = new HashMap<>();
+        for(String event : events){
+            dimensions.put("event", event);
+        }
+        ParseAnalytics.trackEventInBackground("read", dimensions);
     }
 
 }

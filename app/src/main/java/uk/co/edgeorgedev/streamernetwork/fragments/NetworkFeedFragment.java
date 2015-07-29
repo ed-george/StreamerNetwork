@@ -19,6 +19,7 @@ import java.util.List;
 import tr.xip.errorview.ErrorView;
 import uk.co.edgeorgedev.streamernetwork.R;
 import uk.co.edgeorgedev.streamernetwork.adapters.NetworkFeedAdapter;
+import uk.co.edgeorgedev.streamernetwork.common.Constants;
 
 
 /**
@@ -53,7 +54,7 @@ public class NetworkFeedFragment extends Fragment implements Callback, SwipeRefr
     public void getFeed() {
         errorView.setVisibility(View.GONE);
         refreshLayout.setVisibility(View.VISIBLE);
-        PkRSS.with(getActivity()).load("http://www.streamernetwork.com/feed/").callback(this).page(0).async();
+        PkRSS.with(getActivity()).load(Constants.SN_RSS_FEED_URL).callback(this).page(0).async();
     }
 
     @Override

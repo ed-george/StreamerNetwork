@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.ParseAnalytics;
+
 import uk.co.edgeorgedev.streamernetwork.common.Constants;
 import uk.co.edgeorgedev.streamernetwork.common.Utils;
 import uk.co.edgeorgedev.streamernetwork.fragments.NavigationDrawerFragment;
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
+
         setContentView(R.layout.activity_main);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -52,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -66,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
             return true;
         }
 
@@ -75,22 +78,25 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        Fragment contentFragment = null;
+        Fragment contentFragment;
         switch(position){
             case 0:
                 contentFragment = new NetworkFeedFragment();
                 if(getSupportActionBar() != null)
                     getSupportActionBar().setTitle(R.string.app_name);
+                Utils.trackView(Constants.VIEW_NETWORK_FEED);
                 break;
             case 1:
                 contentFragment = new StreamersFragment();
                 if(getSupportActionBar() != null)
                     getSupportActionBar().setTitle(R.string.menu_streamers);
+                Utils.trackView(Constants.VIEW_STREAMERS);
                 break;
             case 2:
                 Intent intent = Utils.openURLIntent(Constants.SN_FORUMS_URL);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                Utils.trackView(Constants.VIEW_FORUMS);
                 return;
             default:
                 return;
