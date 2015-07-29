@@ -101,7 +101,6 @@ public class PostActivity extends AppCompatActivity{
                 .load(article.getImage().toString())
                 .placeholder(R.drawable.feed_default)
                 .error(R.drawable.feed_default)
-                .fit()
                 .into(imageView);
     }
 

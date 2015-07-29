@@ -78,7 +78,7 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
         holder.mTitleText.setText(article.getTitle());
         Uri image = article.getImage();
         String url = image.toString().replace("-150x150", "");
-        Picasso.with(ctx).load(url).placeholder(R.drawable.feed_default).error(R.drawable.feed_default).fit().into(holder.mMainImage);
+        Picasso.with(ctx).load(url).error(R.drawable.feed_default).fit().into(holder.mMainImage);
 
         holder.mMainImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,11 +97,7 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
         Period period = new Period(articleTime, now);
 
         holder.mCreatedDate.setText(MessageFormat.format(ctx.getString(R.string.day_number), period.getDays()));
-
-//        if(article.isTrending()){
-//            holder.mCommentImage.setImageResource(R.drawable.trending);
-//        }
-
+        
     }
 
     @Override
