@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -133,6 +134,13 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.version_info).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showVersionInfoDialog();
+            }
+        });
+
         mDrawerListView = (ListView) view.findViewById(R.id.navigation_drawer_list);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -144,6 +152,14 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         return view;
+    }
+
+    private void showVersionInfoDialog() {
+        new AlertDialog.Builder(getActivity(), R.style.SNAlertDialogStyle)
+                .setTitle(R.string.about)
+                .setMessage(R.string.created_by)
+                .setNegativeButton(R.string.close, null)
+                .show();
     }
 
     public boolean isDrawerOpen() {

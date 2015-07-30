@@ -148,8 +148,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
         builder.setMessage(
                 twitchChannel.getDescription() == null ?
                         ctx.getString(R.string.no_description) : twitchChannel.getDescription());
-        builder.setPositiveButton(ctx.getString(R.string.ok), null);
-        builder.setNegativeButton(ctx.getString(R.string.cancel), null);
+        builder.setNegativeButton(R.string.close, null);
         builder.show();
     }
 

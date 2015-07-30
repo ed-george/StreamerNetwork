@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Streamer Network</string>
+    <string name="app_name" translatable="false">Streamer Network</string>
 
     <string name="version">Version %1$s</string>
 
@@ -34,5 +34,8 @@
     <string name="cancel">Cancel</string>
     <string name="live">Live</string>
     <string name="offline">Offline</string>
+    <string name="about">About</string>
+    <string name="created_by">Created by Ed George - @edgeorge92\nwww.breedrapps.uk</string>
+    <string name="close">Close</string>
 
 </resources>

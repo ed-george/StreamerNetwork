@@ -1,11 +1,9 @@
 <resources>
-    <string name="app_name">Streamer Network</string>
 
     <string name="version">Versión %1$s</string>
 
     <string name="posted_by">Escrito por %1$s</string>
 
-    <string name="hello_world">Hola Mundo!</string>
     <string name="action_settings">Ajustes</string>
     <string name="navigation_drawer_open">Abrir</string>
     <string name="navigation_drawer_close">Cerrar</string>
@@ -37,5 +35,8 @@
     <string name="cancel">Cancelar</string>
     <string name="live">En vivo</string>
     <string name="offline">Desconectado</string>
+    <string name="about">Información</string>
+    <string name="created_by">Creado por Ed George - @edgeorge92\nwww.breedrapps.uk</string>
+    <string name="close">Salir</string>
 
 </resources>
