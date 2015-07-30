@@ -16,3 +16,4 @@ gen-external-apklibs
 **/parse.properties
 app/version.properties
 .DS_Store
+app/fabric.properties
