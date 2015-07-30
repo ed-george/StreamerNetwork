@@ -87,7 +87,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         final TwitchChannel twitchChannel = twitchChannelList.get(position);
 
-        holder.mFeaturedView.setText(twitchChannel.getStatus());
+        holder.mFeaturedView.setText(getStatusString(twitchChannel.getStatus()));
         holder.mTitleText.setText(twitchChannel.getName());
         Picasso.with(ctx).load(twitchChannel.getImage().getSize600()).error(R.drawable.feed_default).into(holder.mMainImage);
 
@@ -136,6 +136,10 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.sn_green));
             holder.shimmerFrameLayout.stopShimmerAnimation();
         }
+    }
+
+    private String getStatusString(String status) {
+        return status.equalsIgnoreCase("live") ? ctx.getString(R.string.live) : ctx.getString(R.string.offline);
     }
 
     private void showInformationDialog(TwitchChannel twitchChannel) {
