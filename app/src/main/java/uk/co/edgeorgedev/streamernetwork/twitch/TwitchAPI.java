@@ -11,13 +11,15 @@ import uk.co.edgeorgedev.streamernetwork.twitch.api.WebAPI;
  */
 public class TwitchAPI {
 
+    private static final String TWITCH_API_URL = "https://api.twitch.tv/kraken";
+    private static final String TWITCH_WEB_API_URL = "http://api.twitch.tv/api";
     private static API api;
     private static WebAPI webApi;
 
     public static API getAPI(){
 
         if(api == null){
-            api = getRestAdapter("https://api.twitch.tv/kraken").create(API.class);
+            api = getRestAdapter(TWITCH_API_URL).create(API.class);
         }
         return api;
     }
@@ -25,7 +27,7 @@ public class TwitchAPI {
     public static WebAPI getWebAPI(){
 
         if(webApi == null){
-            webApi = getRestAdapter("http://api.twitch.tv/api").create(WebAPI.class);
+            webApi = getRestAdapter(TWITCH_WEB_API_URL).create(WebAPI.class);
         }
 
         return webApi;
