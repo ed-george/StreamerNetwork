@@ -15,3 +15,4 @@ gen-external-apklibs
 **/.idea/tasks.xml
 **/parse.properties
 app/version.properties
+.DS_Store
