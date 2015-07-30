@@ -63,9 +63,6 @@
             </intent-filter>
         </receiver>
 
-
     </application>
-
-
 
 </manifest>

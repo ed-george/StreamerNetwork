@@ -30,5 +30,8 @@
     <string name="authored">Author</string>
     <string name="written_by">Article written by %1$s and posted at %2$s</string>
     <string name="read_full_article">Read full article on Streamer Network</string>
+    <string name="no_description">No description available</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

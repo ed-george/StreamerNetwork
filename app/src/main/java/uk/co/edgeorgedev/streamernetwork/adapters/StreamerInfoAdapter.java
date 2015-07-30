@@ -1,8 +1,7 @@
 package uk.co.edgeorgedev.streamernetwork.adapters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import uk.co.edgeorgedev.streamernetwork.R;
+import uk.co.edgeorgedev.streamernetwork.common.Utils;
 import uk.co.edgeorgedev.streamernetwork.twitch.models.TwitchChannel;
 
 /**
@@ -39,6 +39,7 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
         public TextView mFeaturedView;
         public TextView mTitleSubText;
         public View mFeaturedBoxView;
+        public View mInformationLayout;
         public ShimmerFrameLayout shimmerFrameLayout;
         public ViewHolder(View v) {
             super(v);
@@ -54,9 +55,11 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             mFeaturedView = (TextView) v.findViewById(R.id.featured_layout);
             mTitleSubText = (TextView) v.findViewById(R.id.info_sub_text);
             mFeaturedBoxView = v.findViewById(R.id.featured_box_layout);
+            mInformationLayout = v.findViewById(R.id.informationView);
             shimmerFrameLayout = (ShimmerFrameLayout) v.findViewById(R.id.shimmer_view_container);
             mTimeImage.setVisibility(View.GONE);
             mCreatedDate.setVisibility(View.GONE);
+            mInformationLayout.setVisibility(View.VISIBLE);
 
         }
     }
@@ -91,7 +94,14 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
         holder.mMainImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ctx.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitchChannel.getLink())));
+                ctx.startActivity(Utils.openURLIntent(twitchChannel.getLink()));
+            }
+        });
+
+        holder.mInformationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInformationDialog(twitchChannel);
             }
         });
 
@@ -126,17 +136,17 @@ public class StreamerInfoAdapter extends RecyclerView.Adapter<StreamerInfoAdapte
             holder.mFeaturedBoxView.setBackgroundColor(ctx.getResources().getColor(R.color.sn_green));
             holder.shimmerFrameLayout.stopShimmerAnimation();
         }
-
     }
 
-
-    private View.OnClickListener goToPostActivity(final ViewHolder holder, final Article post) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //PostActivity.launch(ctx, holder.mMainImage, post);
-            }
-        };
+    private void showInformationDialog(TwitchChannel twitchChannel) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx, R.style.SNAlertDialogStyle);
+        builder.setTitle(twitchChannel.getName());
+        builder.setMessage(
+                twitchChannel.getDescription() == null ?
+                        ctx.getString(R.string.no_description) : twitchChannel.getDescription());
+        builder.setPositiveButton(ctx.getString(R.string.ok), null);
+        builder.setNegativeButton(ctx.getString(R.string.cancel), null);
+        builder.show();
     }
 
     @Override

@@ -41,6 +41,11 @@
         <item name="android:layout_marginBottom">4dp</item>
     </style>
 
-
+    <style name="SNAlertDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/sn_green</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
 </resources>
 
