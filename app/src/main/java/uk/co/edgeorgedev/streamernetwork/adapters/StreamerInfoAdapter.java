@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.pkmmte.pkrss.Article;
 import com.squareup.picasso.Picasso;
 
 import java.text.MessageFormat;

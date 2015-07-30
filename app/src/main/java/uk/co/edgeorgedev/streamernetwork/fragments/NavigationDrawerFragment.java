@@ -2,11 +2,9 @@ package uk.co.edgeorgedev.streamernetwork.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -28,9 +26,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import uk.co.edgeorgedev.streamernetwork.BuildConfig;
-import uk.co.edgeorgedev.streamernetwork.common.Constants;
-import uk.co.edgeorgedev.streamernetwork.classes.MenuListItem;
 import uk.co.edgeorgedev.streamernetwork.R;
+import uk.co.edgeorgedev.streamernetwork.classes.MenuListItem;
+import uk.co.edgeorgedev.streamernetwork.common.Constants;
 import uk.co.edgeorgedev.streamernetwork.common.Utils;
 
 /**
@@ -257,7 +255,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         }
 
-        if (mDrawerLayout != null) {
+        if (mDrawerLayout != null && isDrawerOpen()) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
 
