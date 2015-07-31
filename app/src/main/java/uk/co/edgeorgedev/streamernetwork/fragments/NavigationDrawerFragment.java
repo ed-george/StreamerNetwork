@@ -255,7 +255,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         }
 
-        if (mDrawerLayout != null && isDrawerOpen()) {
+        if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
 
