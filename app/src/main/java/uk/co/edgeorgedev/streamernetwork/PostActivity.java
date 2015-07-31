@@ -75,7 +75,14 @@ public class PostActivity extends AppCompatActivity{
 
     private String getFormattedDescription() {
         String desc = article.getDescription();
-        return desc.substring(0, desc.indexOf("…") + 1);
+        // If there is no description - Show no description text
+        if(desc == null || desc.isEmpty()){
+            return getString(R.string.no_description);
+        }
+        // If there is long description, cut off at ellipses
+        String fin_desc = desc.substring(0, desc.indexOf("…") + 1);
+        // Return full description if cut off doesnt exist
+        return fin_desc.isEmpty() ? desc : fin_desc;
     }
 
     private void loadTags(List<String> tagStrings) {
@@ -99,7 +106,6 @@ public class PostActivity extends AppCompatActivity{
     private void loadBackdrop(ImageView imageView) {
         Picasso.with(this)
                 .load(article.getImage().toString())
-                .placeholder(R.drawable.feed_default)
                 .error(R.drawable.feed_default)
                 .into(imageView);
     }
