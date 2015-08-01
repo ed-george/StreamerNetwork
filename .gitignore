@@ -13,7 +13,5 @@ proguard/
 gen-external-apklibs
 **/.idea/workspace.xml
 **/.idea/tasks.xml
-**/parse.properties
 app/version.properties
 .DS_Store
-app/fabric.properties
