@@ -17,7 +17,7 @@
     <string name="playing">Playing - %1$s</string>
     <string name="menu_streamers">Streamers</string>
     <string name="menu_feed">News Feed</string>
-
+    <string name="menu_favourites">Favourites</string>
     <string name="error_title">Oh no!</string>
     <string name="error_subtitle">Something went wrong, please try again.</string>
     <string name="retry">RETRY</string>

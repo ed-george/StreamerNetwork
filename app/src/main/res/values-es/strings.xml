@@ -38,5 +38,6 @@
     <string name="about">Información</string>
     <string name="created_by">Creado por Ed George - @edgeorge92\nwww.breedrapps.uk</string>
     <string name="close">Salir</string>
+    <string name="menu_favourites">Favourites</string>
 
 </resources>

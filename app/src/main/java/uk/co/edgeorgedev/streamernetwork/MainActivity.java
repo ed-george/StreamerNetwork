@@ -3,6 +3,7 @@ package uk.co.edgeorgedev.streamernetwork;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -67,12 +68,20 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 Utils.trackView(Constants.VIEW_NETWORK_FEED);
                 break;
             case 1:
+//                contentFragment = new NetworkFeedFragment();
+//                if(getSupportActionBar() != null)
+//                    getSupportActionBar().setTitle(R.string.app_name);
+//                Utils.trackView(Constants.VIEW_NETWORK_FEED);
+                Snackbar.make(findViewById(android.R.id.content), "STUB.", Snackbar.LENGTH_LONG).show();
+                return;
+//                break;
+            case 2:
                 contentFragment = new StreamersFragment();
                 if(getSupportActionBar() != null)
                     getSupportActionBar().setTitle(R.string.menu_streamers);
                 Utils.trackView(Constants.VIEW_STREAMERS);
                 break;
-            case 2:
+            case 3:
                 Intent intent = Utils.openURLIntent(Constants.SN_FORUMS_URL);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

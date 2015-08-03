@@ -69,6 +69,7 @@ public class Utils {
         List<MenuListItem> temp = new ArrayList<>();
 
         temp.add(new MenuListItem(R.string.menu_feed, R.drawable.ic_newspaper, false));
+        temp.add(new MenuListItem(R.string.menu_favourites, R.drawable.ic_star_white, false));
         temp.add(new MenuListItem(R.string.menu_streamers, R.drawable.ic_gamepad, false));
         temp.add(new MenuListItem(R.string.menu_forum, R.drawable.ic_account_multiple, true));
 
