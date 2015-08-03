@@ -49,6 +49,7 @@ public class NetworkFeedAdapter extends RecyclerView.Adapter<NetworkFeedAdapter.
             mMainImage = (ImageView) v.findViewById(R.id.feature_image);
             mCommentImage = (ImageView) v.findViewById(R.id.comment_image);
             mFeaturedView = (TextView) v.findViewById(R.id.featured_layout);
+            v.findViewById(R.id.informationView).setVisibility(View.INVISIBLE);
         }
     }
 
