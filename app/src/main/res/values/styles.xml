@@ -5,6 +5,10 @@
 
     <style name="AppThemeTwo" parent="AppThemeTwo.Base"/>
 
+    <style name="AppThemeTwoFavourite" parent="AppThemeTwo.Base">
+        <item name="colorPrimaryDark">@color/sn_favourite_dark</item>
+    </style>
+
     <style name="AppThemeTwo.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/sn_green</item>
         <item name="colorPrimaryDark">@color/sn_green_dark</item>

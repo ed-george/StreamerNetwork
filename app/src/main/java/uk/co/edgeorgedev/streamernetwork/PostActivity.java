@@ -32,6 +32,13 @@ public class PostActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        article = intent.getParcelableExtra("article");
+
+        if(intent.getBooleanExtra("favourite", false))
+            setTheme(R.style.AppThemeTwoFavourite);
+
         setContentView(R.layout.activity_news_article);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -47,9 +54,6 @@ public class PostActivity extends AppCompatActivity{
                 shareDialog();
             }
         });
-
-        Intent intent = getIntent();
-        article = intent.getParcelableExtra("article");
 
         ((TextView) findViewById(R.id.postContent)).setText(getFormattedDescription());
 
