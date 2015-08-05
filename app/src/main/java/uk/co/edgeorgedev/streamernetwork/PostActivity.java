@@ -98,7 +98,7 @@ public class PostActivity extends AppCompatActivity{
 
     private void loadAuthorInfo(){
         TextView authorInfo = (TextView) findViewById(R.id.author_info);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.post_date_format), Locale.getDefault());
         String formattedDate = formatter.format(new Date(article.getDate()));
         authorInfo.setText(String.format(getString(R.string.written_by), article.getAuthor(), formattedDate));
     }

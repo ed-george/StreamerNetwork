@@ -37,5 +37,6 @@
     <string name="about">About</string>
     <string name="created_by">Created by Ed George - @edgeorge92\nwww.breedrapps.uk</string>
     <string name="close">Close</string>
+    <string name="post_date_format">HH:mm dd/MM/yyyy</string>
 
 </resources>
