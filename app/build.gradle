@@ -22,7 +22,7 @@ apply plugin: 'org.moallemi.advanced-build-version'
 advancedVersioning {
     nameOptions {
         versionMajor 1
-        versionMinor 0
+        versionMinor 1
         versionPatch 0
         versionBuild versionCode
     }
