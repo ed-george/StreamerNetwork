@@ -108,11 +108,20 @@ public class PostActivity extends AppCompatActivity{
     }
 
     private void loadBackdrop(ImageView imageView) {
-        Picasso.with(this)
-                .load(article.getImage().toString())
-                .error(R.drawable.feed_default)
-                .into(imageView);
+
+        Picasso picasso = Picasso.with(this);
+
+        if(article.getImage().toString().isEmpty()){
+            picasso.load(R.drawable.feed_default)
+                    .into(imageView);
+        }else{
+            picasso.load(article.getImage().toString())
+                    .error(R.drawable.feed_default)
+                    .into(imageView);
+        }
+
     }
+
 
 
     private void shareDialog(){
